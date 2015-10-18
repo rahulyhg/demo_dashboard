@@ -1,0 +1,44 @@
+<!--DASHBOARD CONTENT CONTAINER-->
+<md-content class="flex-container">
+  <md-toolbar class="md-menu-toolbar">
+    <div layout="row">
+      <div>
+        <h2 class="md-toolbar-tools">Filters</h2>
+      </div>
+      <div class="md-toolbar-tools">
+        <md-select ng-model="finalFundingYear" placeholder="Year" ng-change="updateYear(finalFundingYear);">
+          <md-option ng-repeat="year in years" value="{{year}}">
+            {{year}}
+          </md-option>
+        </md-select>
+      </div>
+    </div>
+  </md-toolbar>
+  <div ng-repeat="chart in charts">
+    <!-- TODO: Revisit how to properly/efficiently separate in containers -->
+    <div class="layout-margin layout-padding" 
+         layout="row" 
+         layout-sm="column" 
+         layout-md="column"
+         ng-if="$even">
+      <div class="flex">
+        <chart-handler title="charts[$index].title" 
+                       data="charts[$index].data" 
+                       labels="charts[$index].labels" 
+                       type="charts[$index].type"
+                       previous-chart="charts[$index].previousChart"
+                       has-drilldown="charts[$index].hasDrilldown"
+                       click="drilldown"></chart-handler>
+      </div>
+      <div class="flex">
+        <chart-handler title="charts[$index + 1].title" 
+                       data="charts[$index + 1].data" 
+                       labels="charts[$index + 1].labels" 
+                       type="charts[$index + 1].type"
+                       previous-chart="charts[$index + 1].previousChart"
+                       has-drilldown="charts[$index + 1].hasDrilldown"
+                       click="drilldown"></chart-handler>
+      </div>
+    </div>
+  </div>
+</md-content>
