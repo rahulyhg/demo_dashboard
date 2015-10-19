@@ -3,6 +3,8 @@
 ### Setup
 This has been created using <a href="https://www.apachefriends.org/download.html" target="_blank">XAMPP Apache hosting (PHP 5.6)</a>
 It can be run from any APACHE instance running, simply put the folder in the desired web server location.
+<br />
+**NOTE: mod_rewrite is required**
 
 Next is to create your database which can easily use the XAMPP phpmyadmin tool (default: http://localhost/phpmyadmin)
 Navigate to **Import** and select the **intouch_crunchbase_monthly.zip** file (default settings should suffice).
