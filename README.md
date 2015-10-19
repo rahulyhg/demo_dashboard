@@ -15,7 +15,7 @@ and run the following commands:
 npm install && bower install
 `
 
-**OPTIONAL: ** You can run tests by running the following command in your **client** directory: 
+**OPTIONAL: You can run tests by running the following command in your client directory:**
 `
 karma start
 `
