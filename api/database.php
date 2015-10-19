@@ -5,10 +5,18 @@
  */
 class DatabaseHandler {
 
+  //DATABASE NAME
   private $name = 'intouch_crunchbase_monthly';
+
+  //DATABASE HOST
   private $host = 'localhost';
+
+  //DATABASE USERNAME
   private $user = 'root';
+
+  //DATABASE PASSWORD
   private $password = '';
+
   private $connection;
 
   public function __construct()
