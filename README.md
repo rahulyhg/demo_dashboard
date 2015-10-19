@@ -7,7 +7,18 @@ It can be run from any APACHE instance running, simply put the folder in the des
 Next is to create your database which can easily use the XAMPP phpmyadmin tool (default: http://localhost/phpmyadmin)
 Navigate to **Import** and select the **intouch_crunchbase_monthly.zip** file (default settings should suffice).
 
-Once your database is up and running, set your database settings (user/password) under **intouch/api/database.php**
+Once your database is up and running, set your database settings (user/password) under **demo_dashboard/api/database.php**
+
+Now that the back-end is ready, use command-line and cd to your **client** directory
+and run the following commands:
+`
+npm install && bower install
+`
+
+**OPTIONAL: ** You can run tests by running the following command in your **client** directory: 
+`
+karma start
+`
 
 Head on over to your browser and navigate to the folder using your localhost (ex http://localhost/intouch/client/app) 
 and *Voila!*
