@@ -22,7 +22,7 @@ npm install && bower install
 karma start
 `
 
-Head on over to your browser and navigate to the folder using your localhost (ex http://localhost/intouch/client/app) 
+Head on over to your browser and navigate to the folder using your localhost (ex http://localhost/demo_dashboard/client/app) 
 and *Voila!*
 
 ### What's this?
