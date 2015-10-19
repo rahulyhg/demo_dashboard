@@ -79,6 +79,23 @@
       }
     });
 
+    /* 
+     * Get trending market percentages by country
+     */
+    $app->get('/trending/country/:country(/:categories+)', function($country, $categories = array()) use ($dbh, $app){
+      $trends = $dbh->getTrendingMarketsByCountry($country);
+      if($trends)
+      {
+        $app->response()->setStatus(200);
+        $app->response()->write(json_encode($trends));
+      }
+      else
+      {
+        $app->response()->setStatus(400);
+        $app->response()->write('No results found');
+      }
+    });
+
     /*
      *  Get number of funding rounds according to final funding round given
      *  broken down by month for a specific year

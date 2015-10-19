@@ -17,6 +17,9 @@
     },
     getFinalFundingByMonth: function(year){
       return this.$http.get(this.ENDPOINT_API+'companies/fundingrounds/yearly/'+year);
+    },
+    getTrendingMarketsByCountry: function(country){
+      return this.$http.get(this.ENDPOINT_API+'companies/trending/country/'+country);
     }
   };
 

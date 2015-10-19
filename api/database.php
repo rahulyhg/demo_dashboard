@@ -38,7 +38,7 @@ class DatabaseHandler {
     $formattedData = array(
       'chartLabels' => array(),
       'chartData' => array(array()),
-      'chartTitle' => 'Top 10 Countries By Company Count'
+      'chartTitle' => 'Top 10 Countries Company Count'
     );
 
     $resultCount = count($results);
@@ -49,6 +49,36 @@ class DatabaseHandler {
     }
 
     return $formattedData;
+  }
+
+  public function getTrendingMarketsByCountry($country, $cateogires = array())
+  {
+    $sql = "SELECT ROUND(COUNT(strMarket) * 100 / (SELECT COUNT(*) FROM entCompany WHERE strCountryCode = :country), 2) AS marketPercent, strMarket AS market FROM entCompany
+      WHERE strCountryCode = :country
+      AND strMarket <> ''
+      GROUP BY market, strCountryCode
+      ORDER BY marketPercent DESC
+      LIMIT 7";
+
+    $data = array(
+      "country" => $country
+      );
+
+    $results = $this->_chartQuery($sql, $data);
+
+    $formattedData = array(
+      'chartLabels' => array(),
+      'chartData' => array(),
+      'chartTitle' => 'Trending Markets - '.$country.' (%)'
+    );
+    $resultCount = count($results);
+    for($i = 0; $i < $resultCount; $i++)
+    {
+      array_push($formattedData['chartLabels'], $results[$i]['market']);
+      array_push($formattedData['chartData'], $results[$i]['marketPercent']);
+    }
+
+    return $formattedData;    
   }
 
   public function companiesFundingYearly($categories = array())
@@ -65,7 +95,7 @@ class DatabaseHandler {
     $formattedData = array(
       'chartLabels' => array(),
       'chartData' => array(array()),
-      'chartTitle' => 'Avg. Final Funding/Year'
+      'chartTitle' => 'Avg. Final Funding/Year ($)'
     );
 
     $resultCount = count($results);

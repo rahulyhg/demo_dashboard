@@ -12,7 +12,9 @@
         click: '=?',
         previousChart: '=',
         hasDrilldown: '=',
-        revertDrill: '='
+        revertDrill: '=',
+        legend: '=',
+        selectSettings: '='
       },
       templateUrl: 'directives/chart-handler/chart-handler-template.html',
       controller: chartDirectiveCtrl
@@ -25,7 +27,6 @@
    * NOTE: Prototype approach gets messy in directives
    */
   function chartDirectiveCtrl($scope){
-
     //Validates our click event and calls the parent drilldown function
     $scope.drilldown = function(points, evt){
       if($scope.hasDrilldown && points.length > 0)

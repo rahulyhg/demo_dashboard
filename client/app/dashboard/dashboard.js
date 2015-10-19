@@ -8,15 +8,23 @@ function dashboardConfig($routeProvider){
   });
 }
 
-function dashboardCtrl($scope, companyService){
+function dashboardCtrl($scope, $timeout, companyService){
   this.$scope = $scope;
-  this.$scope.finalFundingYear = 2014;
-
-  this.$scope.years = this.yearsAvailable();
+  this.$timeout = $timeout;
 
   this.companyService = companyService;
 
+  this.$scope.finalFundingYear = 2014;
+  this.$scope.years = this.yearsAvailable();
   this.$scope.charts = [];
+  this.$scope.trendingCountry = 'CAN';
+  this.$scope.countries = [
+    'USA',
+    'GBR',
+    'CAN',
+    'DEU',
+    'FRA'
+  ];
 
   //Fire off!
   this.init();
@@ -32,7 +40,7 @@ dashboardCtrl.prototype = {
     //Bind our functions
     this.$scope.drilldown = angular.bind(this, this.drilldown);
     this.$scope.updateYear = angular.bind(this, this.updateYear);
-
+    this.$scope.updateTrend = angular.bind(this, this.updateTrend);
 
     //TODO: Refactor how we're initializing charts, this function is getting cluttered
 
@@ -49,7 +57,6 @@ dashboardCtrl.prototype = {
           hasDrilldown: true,
           click: self.drilldown()
         });
-        console.log(self.$scope.charts);
       }
       else
       {
@@ -102,11 +109,49 @@ dashboardCtrl.prototype = {
         //No data found
       }
     });
-    
+
+    //Retrieve data for the trending market percentages by country
+    this.pullTrend(null);
+  },
+
+  pullTrend: function(index){   
+      var self = this;
+
+        this.companyService.getTrendingMarketsByCountry(this.$scope.trendingCountry).then(function(response){
+        if(response.data)
+        {
+          if(index === null)
+          {
+            self.$scope.charts.push({
+              labels: response.data.chartLabels,
+              data: response.data.chartData,
+              title: response.data.chartTitle,
+              type: 'Pie',
+              name: 'trendingmarkets',
+              legend: true
+            });            
+          }
+          else
+          {
+            self.$scope.charts[index] = {
+              labels: response.data.chartLabels,
+              data: response.data.chartData,
+              title: response.data.chartTitle,
+              type: 'Pie',
+              name: 'trendingmarkets',
+              legend: true
+            };
+          }
+        }
+        else
+        {
+          //No data found
+        }
+      });
   },
 
   /*
-   * Will fetch a new chart of specific data (based on its parent chart)
+   * Will fetch a new chart of specific data (its parent chart)
    * based on the type of chart selected
    */
   drilldown: function(points, evt){
@@ -149,7 +194,6 @@ dashboardCtrl.prototype = {
    * we're updating a specific chart
    */
   updateYear: function(year){
-    console.log('here');
     var thisIndex,
         self = this;
     for(var i = 0; i < this.$scope.charts.length; i++)
@@ -179,6 +223,19 @@ dashboardCtrl.prototype = {
         //No data found
       }
     });
+  },
+
+  updateTrend: function(){
+    var thisIndex;
+    for(var i = 0; i < this.$scope.charts.length; i++)
+    {
+      if(this.$scope.charts[i].name === 'trendingmarkets')
+      {
+        thisIndex = i;
+        break;
+      }
+    }
+    this.pullTrend(thisIndex);
   },
 
   /*

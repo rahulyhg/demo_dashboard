@@ -11,6 +11,12 @@
             {{year}}
           </md-option>
         </md-select>
+        &nbsp; &nbsp;
+        <md-select ng-model="trendingCountry" placeholder="Country" ng-change="updateTrend();">
+          <md-option ng-repeat="country in countries" value="{{country}}">
+            {{country}}
+          </md-option>
+        </md-select>
       </div>
     </div>
   </md-toolbar>
@@ -28,6 +34,7 @@
                        type="charts[$index].type"
                        previous-chart="charts[$index].previousChart"
                        has-drilldown="charts[$index].hasDrilldown"
+                       select-settings="charts[$index].selectSettings"
                        click="drilldown"></chart-handler>
       </div>
       <div class="flex">
@@ -37,6 +44,7 @@
                        type="charts[$index + 1].type"
                        previous-chart="charts[$index + 1].previousChart"
                        has-drilldown="charts[$index + 1].hasDrilldown"
+                       select-settings="charts[$index + 1].selectSettings"
                        click="drilldown"></chart-handler>
       </div>
     </div>

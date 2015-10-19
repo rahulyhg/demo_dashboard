@@ -1,7 +1,7 @@
 <md-card ng-if="data.length">
   <md-toolbar class="md-accent">
     <div class="md-toolbar-tools">
-      <h3>
+      <h4>
         <span>
           {{title}}
           <md-button class="md-button md-raised md-primary" 
@@ -11,15 +11,27 @@
             <ng-md-icon icon="keyboard_backspace"></ng-md-icon>
           </md-button>
         </span>
-      </h3>
+      </h4>
     </div>
   </md-toolbar>
   <md-card-content ng-cloak>
+    <!--
+    TODO: Revisit country toggling
+    <md-input-container ng-if="selectSettings">
+      <label>{{selectSettings.label}}</label>
+      <md-select ng-model="selectSettings.model" aria-label="selectSettings.label">
+        <md-option ng-repeat="opt in selectSettings.options" value="opt">
+          {{opt}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+    -->
     <canvas class="chart chart-base" 
             chart-type="type"
             chart-data="data" 
             chart-labels="labels"
             chart-options="options"
-            chart-click="drilldown"></canvas>
+            chart-click="drilldown"
+            chart-legend="legend"></canvas>
   </md-card-content>
 </md-card>
