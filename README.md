@@ -11,11 +11,13 @@ Once your database is up and running, set your database settings (user/password)
 
 Now that the back-end is ready, use command-line and cd to your **client** directory
 and run the following commands:
+<br />
 `
 npm install && bower install
 `
 
 **OPTIONAL: You can run tests by running the following command in your client directory:**
+<br />
 `
 karma start
 `
